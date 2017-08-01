@@ -1,6 +1,8 @@
 'use strict';
 
 const user = require('../models/user');
+const product = require('../models/product');
+
 const bcrypt = require('bcryptjs');
 
 exports.registerUser = (name, email, password) => 
@@ -17,7 +19,12 @@ exports.registerUser = (name, email, password) =>
 			hashed_password: hash,
 			created_at: new Date()
 		});
-
+		const  newProduct = new product({
+			name : "aaaaaaa",
+			email : "aaaaa@gmail.com",
+			price : "123123213"
+		});
+		newProduct.save()
 		newUser.save()
 
 		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
