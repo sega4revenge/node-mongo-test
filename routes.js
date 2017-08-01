@@ -135,7 +135,7 @@ module.exports = router => {
 			.catch(err => res.status(err.status).json({ message: err.message }));
 		}
 	});
- dfsdfd
+
 	function checkToken(req) {
 
 		const token = req.headers['x-access-token'];
