@@ -8,6 +8,8 @@ const login = require('./functions/login');
 const profile = require('./functions/profile');
 const password = require('./functions/password');
 const config = require('./config/config.json');
+const path = require('path');
+const uploadDir = path.join('./uploads/');
 
 module.exports = router => {
     //
@@ -69,7 +71,25 @@ module.exports = router => {
 			.catch(err => res.status(err.status).json({ message: err.message }));
 		}
 	});
+    router.post('/upload', function(req, res){
+        uploadMedia(req,res)
+    });
 
+    function uploadMedia(req, res) { // This is just for my Controller same as app.post(url, function(req,res,next) {....
+        const form = new formidable.IncomingForm();
+        form.multiples = true;
+        form.keepExtensions = true;
+        form.uploadDir = uploadDir;
+        form.parse(req, (err, fields, files) => {
+            if (err) return res.status(500).json({ error: err });
+            console.log(files);
+            res.status(200).json({ uploaded: true , name : fields.name})
+        });
+        form.on('fileBegin', function (name, file) {
+            const [fileName, fileExt] = file.name.split('.');
+            file.path = path.join(uploadDir, `${fileName}_${new Date().getTime()}.${fileExt}`)
+        })
+    }
 	router.get('/users/:id', (req,res) => {
 
 		if (checkToken(req)) {
