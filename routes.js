@@ -100,7 +100,7 @@ module.exports = router => {
         form.uploadDir = uploadDir;
         form.parse(req, (err, fields, files) => {
             if (err) return res.status(500).json({ error: err });
-            console.log({ message: fields });
+            console.log({ message: files });
 
             // console.log(files);
             res.status(200).json({ uploaded: true , name : fields.name})
