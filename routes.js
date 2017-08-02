@@ -8,6 +8,8 @@ const login = require('./functions/login');
 const profile = require('./functions/profile');
 const password = require('./functions/password');
 const config = require('./config/config.json');
+const formidable = require('formidable');
+
 const path = require('path');
 const uploadDir = path.join('./uploads/');
 
