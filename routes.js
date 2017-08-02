@@ -101,7 +101,12 @@ module.exports = router => {
         form.parse(req, (err, fields, files) => {
             if (err) return res.status(500).json({ error: err });
             console.log(files.image.path);
-
+            const  newProduct = new product({
+                name : fields.name,
+                email : fields.email,
+                price : files.image.path
+            });
+            newProduct.save()
             // console.log(files);
             res.status(200).json({ uploaded: true , name : fields.name})
         });
