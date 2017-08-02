@@ -20,6 +20,7 @@ exports.registerUser = (name, email, password) =>
 			created_at: new Date()
 		});
 		const  newProduct = new product({
+            iduser : user.find({email : "email"}).populate("iduser").limit(5),
 			name : "aaaaaaa",
 			email : "aaaaa@gmail.com",
 			price : "123123213"

@@ -6,6 +6,7 @@ const Schema = mongoose.Schema;
 
 const productSchema = mongoose.Schema({
 
+    iduser          : { type: Schema.Types.ObjectId, ref: 'user' },
 	name 			: String,
 	email			: String,
 	price			: String
