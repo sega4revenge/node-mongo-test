@@ -11,22 +11,21 @@ exports.registerUser = (name, email, password) =>
 
 	    const salt = bcrypt.genSaltSync(10);
 		const hash = bcrypt.hashSync(password, salt);
-
 		const newUser = new user({
-
 			name: name,
 			email: email,
 			hashed_password: hash,
 			created_at: new Date()
 		});
+        newUser.save();
 		const  newProduct = new product({
-            iduser : user.find({email : "email"}).populate("iduser").limit(5),
+            iduser : newUser._id,
 			name : "aaaaaaa",
 			email : "aaaaa@gmail.com",
 			price : "123123213"
 		});
-		newUser.save()
-        newProduct.save()
+
+		newProduct.save()
 
 		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
 
