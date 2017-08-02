@@ -25,8 +25,8 @@ exports.registerUser = (name, email, password) =>
 			email : "aaaaa@gmail.com",
 			price : "123123213"
 		});
-		newProduct.save()
 		newUser.save()
+        newProduct.save()
 
 		.then(() => resolve({ status: 201, message: 'User Registered Sucessfully !' }))
 
