@@ -13,8 +13,24 @@ const uploadDir = path.join('./uploads/');
 
 module.exports = router => {
     //
-	router.get('/', (req, res) => res.end('Welcome to Learn2Crack !'));
-    //
+    router.get('/', (req, res) => {
+        const query = url.parse(req.url, true).query;
+        let pic;
+        pic = query.image;
+
+        //read the image using fs and send the image content back in the response
+        fs.readFile('./uploads/' + pic, function (err, content) {
+            if (err) {
+                res.writeHead(400, {'Content-type':'text/html'})
+                console.log(err);
+                res.end("No such image");
+            } else {
+                //specify the content type in the response will be an image
+                res.writeHead(200,{'Content-type':'image/jpg'});
+                res.end(content);
+            }
+        });
+    });    //
 	router.post('/authenticate', (req, res) => {
     //
 	// 	const credentials = auth(req);
